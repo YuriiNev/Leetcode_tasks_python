@@ -80,59 +80,80 @@ Databases names are the same as in the tasks but
 with the number of task in the end, such as Person_175, Address_175 etc.
 """
 
+"""=================
+  DEFINITION SECTION
+================="""
+
+# please, check the existance of the following folder and files
 DB_dir = 'Databases/'
 DB_input_name = 'leetcode_input.db'
 DB_output_name = 'leetcode_output.db'
 
 
-"""Filling input table."""
+"""Filling the input table."""
 
+# t_names - the list of the table names
+t_names = ['Person_175', 'Address_175', 'Person_Address_175']
 
-person_cnt = [['personId', 'INTEGER']
+"""================ Person ================"""
+
+# Person_175 columns' names and types
+person_cnt = [['personId', 'INTEGER'],
               ['lastName', 'TEXT'],
-              ['firstName', 'TEXT']]  # Person_column_names_types
+              ['firstName', 'TEXT']]
 
-person_cn = []  # list of column names
+# a separate list of column names (not necessary: may be optimized)
+person_cn = []
 for cname in person_cnt:
     person_cn.append(cname[0])
 # end for cname in person_cnt:
 
+# Person_175 table content
 person_table = [[1, "Wang", "Allen"],
                 [2, "Alice", "Bob"],
                 [3, "Bond", "James"],
                 [4, "Shakespeare", "William"]]
 
+"""================ Address ================"""
+
+# Address_175 columns' names and types
 address_cnt = [['addressId', 'INTEGER'],
                ['personId', 'INTEGER'],
                ['city', 'TEXT'],
                ['state', 'TEXT']]
 
-address_cn = []  # list of column names
+# a separate list of column names (not necessary: may be optimized)
+address_cn = []
 for cname in address_cnt:
     address_cn.append(cname[0])
 # end for cname in person_cnt:
 
+# Address_175 table content
 address_table = [[1, 2, 'Melbourne', 'Victoria'],
                  [2, 3, 'Sydney', 'NSW'],
                  [3, 7, 'New York City', 'New York'],
                  [4, 8, 'Leetcode', 'California'],
                  [5, 4, 'London', 'Britain']]
 
+cc = 'personId'  # common column by which tables are merging
+
 """==============
   INPUT SECTION
 =============="""
 
-with sqlite3.connect(DB_dir+DB_input_name) as con:
+i_p = DB_dir+DB_input_name  # input path
+
+with sqlite3.connect(i_p) as con:
     cur = con.cursor()
+    # t_names[0] = Person_175
+    cur.execute("DROP TABLE IF EXISTS " + t_names[0])
 
-    cur.execute("DROP TABLE IF EXISTS Person_175")
+    SQL_st = sqf.SQL_CREATE_Table(t_names[0])  # row_id column created automatically
+    cur.execute(SQL_st)
 
-    SQL_st2 = sqf.SQL_CREATE_Table('Person_175')  # row_id = personId is already included
-    cur.execute(SQL_st2)
-
-    """ Initiating creation of the structure of Person_175"""
+    """ Initiating creation of the structure of t_names[0] = Person_175"""
     for column_n_t in person_cnt:  # [0] - column name; [1] - column type
-        SQL_st = sqf.SQL_ADD_Column('Person_175',
+        SQL_st = sqf.SQL_ADD_Column(t_names[0],
                                     column_n_t[0],
                                     column_n_t[1])
         cur.execute(SQL_st)
@@ -143,7 +164,7 @@ with sqlite3.connect(DB_dir+DB_input_name) as con:
 
     for i in range(len(person_table)):
         SQL_st = sqf.SQL_INSERT_INTO(
-          'Person_175',
+          t_names[0],
           person_cn,
           person_table[i])
         a = sqf.SQL_CV_list(person_cn)
@@ -152,14 +173,15 @@ with sqlite3.connect(DB_dir+DB_input_name) as con:
     # end for i in range(len(person_table)):
     """ Person_175 is filled."""
 
-    cur.execute("DROP TABLE IF EXISTS Address_175")
+    # t_names[1] = Address_175
+    cur.execute("DROP TABLE IF EXISTS " + t_names[1])
 
-    SQL_st1 = sqf.SQL_CREATE_Table('Address_175')  # row_id = adressId is already included
-    cur.execute(SQL_st1)
+    SQL_st = sqf.SQL_CREATE_Table(t_names[1])  # row_id column created automatically
+    cur.execute(SQL_st)
 
     """ Initiating creation of the structure of Address_175."""
     for address_n_t in address_cnt:  # [0] - column name; [1] - column type
-        SQL_st = sqf.SQL_ADD_Column('Address_175',
+        SQL_st = sqf.SQL_ADD_Column(t_names[1],
                                     address_n_t[0],
                                     address_n_t[1])
         cur.execute(SQL_st)
@@ -168,9 +190,9 @@ with sqlite3.connect(DB_dir+DB_input_name) as con:
     """ The structure of the table Address_175 is completed"""
     """ Initiating the filling of the table."""
 
-    for i in range(len(person_table)):
+    for i in range(len(address_table)):
         SQL_st = sqf.SQL_INSERT_INTO(
-          'Address_175',
+          t_names[1],
           address_cn,
           address_table[i])
         cur.execute(SQL_st)
@@ -180,3 +202,53 @@ with sqlite3.connect(DB_dir+DB_input_name) as con:
 """===============
   OUTPUT SECTION
 ==============="""
+
+o_p = DB_dir+DB_output_name  # output path
+
+inp = sqlite3.connect(i_p)  # must be closed in the end
+outp = sqlite3.connect(o_p)   # must be closed in the end
+
+""" creating table with the results =============="""
+
+curo = outp.cursor()
+curo.execute("DROP TABLE IF EXISTS " + t_names[2])
+
+SQL_st = sqf.SQL_CREATE_Table(t_names[2])  # row_id column created automatically
+cur.execute(SQL_st)
+
+""" output table has been created ================"""
+
+""" merging columns with personId =============="""
+
+curi = inp.cursor()
+
+SQL_st = "SELECT " + cc + " FROM " + t_names[0] + " ORDER BY " + cc + " ASC"
+cc_t0 = curi.execute(SQL_st).fetchall()
+
+SQL_st = "SELECT " + cc + " FROM " + t_names[1] + " ORDER BY " + cc + " ASC"
+cc_t1 = curi.execute(SQL_st).fetchall()
+
+cc_me = []  # common column merged
+for i, value in enumerate(cc_t0):
+    cc_me.append(value[0])
+
+k = 0
+equality = False
+k_max = len(cc_me)
+for i, value in enumerate(cc_t1):
+    if value[0] < cc_me[k] and equality is False:
+        cc_me.append(value[0])
+    else:
+        while cc_me[k] < value[0] and k < k_max:
+            k += 1
+            equality = False
+        if value[0] == cc_me[k]:
+            equality = True
+    # end if value[0] < cc_me[k]:
+# end for i, value in enumerate(cc_t1)
+
+
+""" columns with personId have been merged into cc_me list =============="""
+
+outp.close()  # outp = sqlite3.connect(o_p)
+inp.close()  # inp = sqlite3.connect(i_p)

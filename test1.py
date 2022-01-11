@@ -1,26 +1,31 @@
-def SQL_CV_list(column_names: list):
-    """Return SQL statement for several column names or values.
+a = (2, 3, 5, 9, 12, 14, 25)
+b = (1, 4, 5, 7, 12, 21, 22, 23, 25, 27)
 
-    Example: [name1, name2, name3] returned as a string:
-    "name1', 'name2', 'name3'"
-    the same is true for values too.
-    """
-    SQL_statement = ""
-    for el in enumerate(column_names):
-        SQL_statement += "'"
-        if el[0] < len(column_names) - 1:
-            SQL_statement += str(el[1]) + "',"
-        else:
-            SQL_statement += str(el[1]) + "'"
-    return SQL_statement
+c_corr = [1, 2, 3, 4, 5, 7, 9, 12, 14, 21, 22, 23, 25, 27]
+c = []
+for i in range(len(a)):
+    c.append(a[i])
 
-person_cnt = [['lastName', 'TEXT'],
-              ['firstName', 'TEXT']]  # Person_column_names_types
+k = 0
 
-person_cn = []  # list of column names
-for cname in person_cnt:
-    person_cn.append(cname[0])
-# end for cname in person_cnt:
+k_max = len(c)
+for i, value in enumerate(b):
+    while c[k] < value and k < k_max:
+        k += 1
+        ck_val = c[k]
+    # end while
+    if c[k] > value:
+        c.append(value)
+    # end if c[k] > value
+    if a[k_max-1] < value:
+        c.append(value)
+    # end if a[k_max-1] < value:
+# end for i, value in enumerate(cc_t1)
+c.sort()
+print("c = ", c)
+print("c_= ", c_corr)
+print("length c=", len(c), "length c_corr=", len(c_corr))
 
-a = SQL_CV_list(person_cn)
-b=5
+        #     equality = False
+        # if value == c[k]:
+        #     equality = True
