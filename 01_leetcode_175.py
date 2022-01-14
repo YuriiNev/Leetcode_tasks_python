@@ -224,7 +224,7 @@ for val in address_cnt:
         pc_cnt.append(val)
     # end if val not in pc_cnt
 # end for val in address_cnt
-pc_cnt.remove(pc_cnt[0])  # now has new indexation
+pc_cnt.remove(pc_cnt[0])  # has new indexation after removing an element
 pc_cnt.remove(pc_cnt[2])
 
 """ Initiating creation of the structure of t_names[2] = Person_Address_175"""
