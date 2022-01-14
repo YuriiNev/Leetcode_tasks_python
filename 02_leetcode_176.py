@@ -96,9 +96,9 @@ for cname in salary_cnt:
 
 # Salary_176 table content
 #         personId, sirname, name
-salary_table = [[1, 500],
-                [2, 500],
-                [3, 100],
+salary_table = [[1, 200],
+                [2, 100],
+                [3, 400],
                 [4, 100]]
 
 cc = 'salary'  # the main column for operations
@@ -182,8 +182,8 @@ curi = inp.cursor()
 # receing the values in the rows with personId in each table
 
 SQL_st = "SELECT " + cc + " FROM " + t_names[0]
-val_new = 0
-val_old = 0
+val_new = -1
+val_old = -1
 
 # after this cycle should be available 2 highest values from cc column
 # here, problems with memory could occur in case of too long column
@@ -203,6 +203,18 @@ for i, val in enumerate(curi.execute(SQL_st).fetchall()):
 # end for
 print("pre-highest value = ", val_old, "highest value = ", val_new)
 
+row_val = []
+if val_old < 0:
+    row_val.append(None)
+else:
+    row_val.append(val_old)
+# end ef else
+
+SQL_st = sqf.SQL_INSERT_INTO(
+  t_names[1],
+  pc_cn,
+  row_val)
+curo.execute(SQL_st)
 
 outp.commit()  # commiting changes into output DB, do not commit into input DB
 outp.close()  # outp = sqlite3.connect(o_p)
