@@ -185,7 +185,7 @@ SQL_st = "SELECT " + cc + " FROM " + t_names[0]
 val_new = -1
 val_old = -1
 
-# after this cycle should be available 2 highest values from cc column
+# after this cycle, there should be available 2 highest values from cc column
 # here, problems with memory could occur in case of too long column
 # more safe way is to use fetchone() untill it returns null
 """ there are 3 values: val[0] - current value, val_old and val_new.
