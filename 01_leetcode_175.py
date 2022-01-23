@@ -23,7 +23,8 @@ Table: Address
 | state       | varchar |
 +-------------+---------+
 addressId is the primary key column for this table.
-Each row of this table contains information about the city and state of one person with ID = PersonId.
+Each row of this table contains information about the city and
+state of one person with ID = PersonId.
 
 
 Write an SQL query to report the first name, last name,
