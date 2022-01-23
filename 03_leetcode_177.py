@@ -230,6 +230,6 @@ SQL_st = sqf.SQL_INSERT_INTO(
   row_val)
 curo.execute(SQL_st)
 
-outp.commit()  # commiting changes into output DB, do not commit into input DB
+outp.commit()  # commit changes into output DB, do not commit into input DB
 outp.close()  # outp = sqlite3.connect(o_p)
 inp.close()  # inp = sqlite3.connect(i_p)
