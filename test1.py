@@ -30,6 +30,7 @@ c.sort()
 c_corr.sort(reverse=True)
 print("c_corr = ", c_corr)
 N = 4
+print("N = ", N)
 val_nth = c_corr[0]
 for i, val in enumerate(c_corr):
     if val_nth != val:
@@ -37,7 +38,7 @@ for i, val in enumerate(c_corr):
         N -= 1
     if N == 1:
         break
-print("N = ", "val_nth = ", val_nth)
+print("val_nth = ", val_nth)
 # print("c_= ", c_corr)
 # print("length c=", len(c), "length c_corr=", len(c_corr))
 
