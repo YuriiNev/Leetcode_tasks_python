@@ -223,6 +223,6 @@ for i in range(1, len(val_score)):
     curo.execute(SQL_st)
 # end for i in range(1, len(val_score)):
 
-outp.commit()  # commiting changes into output DB, do not commit into input DB
+outp.commit()  # commit changes into output DB, do not commit into input DB
 outp.close()  # outp = sqlite3.connect(o_p)
 inp.close()  # inp = sqlite3.connect(i_p)
