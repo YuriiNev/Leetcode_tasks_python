@@ -202,8 +202,5 @@ for sym in file_text:
 for i in range(len(numbers)):
     file_o.write(numbers[i] + '\n')
 
-
-
 file_o.close()
 file_i.close()
-
