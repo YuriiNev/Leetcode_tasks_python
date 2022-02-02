@@ -43,8 +43,7 @@ print("val_nth = ", val_nth)
 # print("length c=", len(c), "length c_corr=", len(c_corr))
 
 
-
 a1 = 'string'
 b1 = 1
 ab = a1*b1
-print('ab = ', a1*b1)
+print(a1[2])

@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['Additional_functions\\sqlite_querry_functions.py', 'Additional_functions\\sqlite_querry_functions\\__init__.py', '..\\..\\..\\Python\\Projects\\PortlandHouseProjects\\4.1._4.2._DataProcessing.py', 'test1.py', '..\\..\\..\\Python\\Projects\\PortlandHouseProjects\\test.py', '08_leetcode_193.py']
+recent_files = ['Additional_functions\\sqlite_querry_functions.py', 'Additional_functions\\sqlite_querry_functions\\__init__.py', '..\\..\\..\\Python\\Projects\\PortlandHouseProjects\\4.1._4.2._DataProcessing.py', 'test1.py', '..\\..\\..\\Python\\Projects\\PortlandHouseProjects\\test.py', '08_leetcode_193.py', '09_leetcode_194.py']
 
