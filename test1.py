@@ -42,8 +42,12 @@ print("val_nth = ", val_nth)
 # print("c_= ", c_corr)
 # print("length c=", len(c), "length c_corr=", len(c_corr))
 
-
 a1 = 'string'
-b1 = 1
-ab = a1*b1
-print(a1[2])
+b1 = 'p'
+try:
+    c1 = a1.index(b1)
+except ValueError:
+    c1 = -1
+
+print(c1)
+
