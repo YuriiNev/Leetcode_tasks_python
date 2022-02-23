@@ -29,7 +29,7 @@ s consists of English letters, digits, symbols and spaces.
 
 
 class Solution:
-    """Class for defining the lengthl of the longest substring."""
+    """Class for defining the length of the longest substring."""
 
     def lengthOfLongestSubstring(self, s: str) -> int:
         """Define the length of the longest substring."""
