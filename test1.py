@@ -51,3 +51,7 @@ except ValueError:
 
 print(c1)
 
+
+b2 = [[22, 23, 1], [4, 5, 200], [27, 5, 3], [22, 1, 4], [25, 5, 5]]
+b2.sort(key=lambda x: (x[1], x[0]))
+print("b2 = ", b2)
